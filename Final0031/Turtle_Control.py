@@ -12,6 +12,12 @@ frame.geometry("200x400")
 rospy.init_node("Turtle_Control")
 pub = rospy.Publisher("turtle1/cmd_vel", Twist, queue_size=10)
 pub_motion = rospy.Publisher("Motion", String, queue_size=10)
+pub_led = rospy.Publisher("Topic_LED",Int16,queue_size=10)
+
+def status(val):
+    status_text.config(text="Status: " + str(val.data))
+    sub = rospy.Subscriber("status",String,callback=status)
+    
 
 def fw():
     cmd = Twist()
@@ -100,4 +106,3 @@ B6 = Button(text="OFF", command=set_pen_off)
 B6.place(x=100, y=300)
 
 frame.mainloop()
-
